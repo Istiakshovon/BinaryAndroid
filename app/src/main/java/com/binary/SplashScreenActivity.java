@@ -56,11 +56,24 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                if(getUserLogin.equals("0")){
+                if(getUserLogin.equals("1")){
+                    Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
+                    startActivity(intent);
+                    finish();
+                }else if(getUserLogin.equals("0")){
                     Intent intent = new Intent(getApplicationContext(),BinaryToTextActivity.class);
                     startActivity(intent);
-                }else{
-                    if(getUserLogin.equals("")){
+                    finish();
+                }else if(getUserLogin.equals("2")){
+                    Intent intent = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else if (getUserLogin.equals("3")) {
+                    Intent intent = new Intent(getApplicationContext(),BinaryToDecimalActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    if (getUserLogin.equals("")) {
                         //Creating a shared preference
 
                         SharedPreferences sp = getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
@@ -73,12 +86,12 @@ public class SplashScreenActivity extends AppCompatActivity {
                         //Saving values to editor
                         editor.apply();
 
-                        Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
+                        Intent intent = new Intent(getApplicationContext(), TextToBinaryActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();
-                    }else{
-                        Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
+                    } else {
+                        Intent intent = new Intent(getApplicationContext(), TextToBinaryActivity.class);
                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
                         finish();

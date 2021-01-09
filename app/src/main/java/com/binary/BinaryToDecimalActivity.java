@@ -14,51 +14,52 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class TextToBinaryActivity extends AppCompatActivity {
+public class BinaryToDecimalActivity extends AppCompatActivity {
 
-    StringBuilder binary;
-    EditText etxtText;
-    TextView txtBinary;
+    RelativeLayout bgl_binary;
+    EditText etxtBinary;
+    TextView txtText;
     TextView btnCopy;
-    RelativeLayout bgl_main;
-    Switch textSwitch;
+    String text;
+    Switch binarySwitch;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_to_binary);
+        setContentView(R.layout.activity_binary_to_decimal);
 
-        etxtText = findViewById(R.id.etxtText);
-        txtBinary = findViewById(R.id.txtBinary);
+        bgl_binary = findViewById(R.id.bgl_binary);
+        etxtBinary = findViewById(R.id.etxtBinary);
+        txtText = findViewById(R.id.txtText);
         btnCopy = findViewById(R.id.btnCopy);
-        bgl_main = findViewById(R.id.bgl_main);
-        textSwitch = findViewById(R.id.switch_text_binary);
+        binarySwitch = findViewById(R.id.switch_binary_text);
 
-        btnCopy.setVisibility(View.INVISIBLE);
+
+        getSupportActionBar().setTitle("Binary to Decimal");
 
         //Fetching id from shared preferences
         SharedPreferences sharedPreferences;
         sharedPreferences =getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String getUserLogin = sharedPreferences.getString(constant.HOME_PAGE, "");
 
-        if(getUserLogin.equals("1")){
-            textSwitch.setChecked(true);
+        btnCopy.setVisibility(View.INVISIBLE);
+
+        if(getUserLogin.equals("3")){
+            binarySwitch.setChecked(true);
         }else{
-            textSwitch.setChecked(false);
+            binarySwitch.setChecked(false);
         }
 
-        textSwitch.setOnClickListener(new View.OnClickListener() {
+        binarySwitch.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Boolean isChecked = textSwitch.isChecked();
+                Boolean isChecked = binarySwitch.isChecked();
 
                 if(isChecked){
                     //Creating a shared preference
@@ -68,7 +69,7 @@ public class TextToBinaryActivity extends AppCompatActivity {
                     //Creating editor to store values to shared preferences
                     SharedPreferences.Editor editor = sp.edit();
                     //Adding values to editor
-                    editor.putString(constant.HOME_PAGE, "1");
+                    editor.putString(constant.HOME_PAGE, "3");
 
                     //Saving values to editor
                     editor.apply();
@@ -80,7 +81,7 @@ public class TextToBinaryActivity extends AppCompatActivity {
                     //Creating editor to store values to shared preferences
                     SharedPreferences.Editor editor = sp.edit();
                     //Adding values to editor
-                    editor.putString(constant.HOME_PAGE, "0");
+                    editor.putString(constant.HOME_PAGE, "1");
 
                     //Saving values to editor
                     editor.apply();
@@ -88,10 +89,7 @@ public class TextToBinaryActivity extends AppCompatActivity {
             }
         });
 
-
-        getSupportActionBar().setTitle("Text to Binary");
-
-        etxtText.addTextChangedListener(new TextWatcher() {
+        etxtBinary.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {}
@@ -105,11 +103,11 @@ public class TextToBinaryActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if(s.length() != 0) {
-                    String text = etxtText.getText().toString();
-                    stringToBinary(text,true);
+                    String binary = etxtBinary.getText().toString();
+                    binaryToText(Long.parseLong(binary.trim()));
                     btnCopy.setVisibility(View.VISIBLE);
                 }else{
-                    txtBinary.setText("");
+                    txtText.setText("");
                     btnCopy.setVisibility(View.INVISIBLE);
                 }
             }
@@ -119,34 +117,32 @@ public class TextToBinaryActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
-                ClipData clip = ClipData.newPlainText("text", binary);
+                ClipData clip = ClipData.newPlainText("text", text);
                 clipboard.setPrimaryClip(clip);
-                Snackbar.make(bgl_main,"Copied to clipboard",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(bgl_binary,"Copied to clipboard",Snackbar.LENGTH_SHORT).show();
             }
         });
-
     }
 
-    public String stringToBinary(String str, boolean pad) {
-        byte[] bytes = str.getBytes();
-        binary = new StringBuilder();
-        for (byte b : bytes)
+    private void binaryToText(long num){
+        int decimalNumber = 0, i = 0;
+        long remainder;
+        while (num != 0)
         {
-            binary.append(Integer.toBinaryString((int) b));
-            if(pad) { binary.append(' '); }
+            remainder = num % 10;
+            num /= 10;
+            decimalNumber += remainder * Math.pow(2, i);
+            ++i;
         }
-        txtBinary.setText(binary);
+        text = String.valueOf(decimalNumber);
+        txtText.setText(text);
 
-
-//        System.out.println("String to Binary : "+binary);
-        return binary.toString();
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main3, menu);
         return true;
     }
 
@@ -154,18 +150,18 @@ public class TextToBinaryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.binaryToText:
-                Intent intent = new Intent(getApplicationContext(),BinaryToTextActivity.class);
+            case R.id.textToBinary:
+                Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
-            case R.id.decimalToBinary:
-                Intent intent1 = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+            case R.id.binaryToText:
+                Intent intent1 = new Intent(getApplicationContext(),BinaryToTextActivity.class);
                 startActivity(intent1);
                 finish();
                 return true;
-            case R.id.binaryToDecimal:
-                Intent intent2 = new Intent(getApplicationContext(), BinaryToDecimalActivity.class);
+            case R.id.decimalToBinary:
+                Intent intent2 = new Intent(getApplicationContext(), DecimalToBinaryActivity.class);
                 startActivity(intent2);
                 finish();
                 return true;

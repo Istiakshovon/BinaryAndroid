@@ -14,84 +14,48 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
 
-public class TextToBinaryActivity extends AppCompatActivity {
+public class DecimalToBinaryActivity extends AppCompatActivity {
 
-    StringBuilder binary;
-    EditText etxtText;
+    String binary;
+    EditText etxtDecimal;
     TextView txtBinary;
     TextView btnCopy;
-    RelativeLayout bgl_main;
-    Switch textSwitch;
+    RelativeLayout bgl_decimal_to_binary;
+    Switch textDecimal;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_text_to_binary);
+        setContentView(R.layout.activity_decimal_to_binary);
 
-        etxtText = findViewById(R.id.etxtText);
+        etxtDecimal = findViewById(R.id.etxtDecimal);
         txtBinary = findViewById(R.id.txtBinary);
         btnCopy = findViewById(R.id.btnCopy);
-        bgl_main = findViewById(R.id.bgl_main);
-        textSwitch = findViewById(R.id.switch_text_binary);
+        bgl_decimal_to_binary = findViewById(R.id.bgl_decimal_to_binary);
+        textDecimal = findViewById(R.id.switch_decimal_binary);
 
         btnCopy.setVisibility(View.INVISIBLE);
+
+        getSupportActionBar().setTitle("Decimal to Binary");
 
         //Fetching id from shared preferences
         SharedPreferences sharedPreferences;
         sharedPreferences =getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
         String getUserLogin = sharedPreferences.getString(constant.HOME_PAGE, "");
 
-        if(getUserLogin.equals("1")){
-            textSwitch.setChecked(true);
+        if(getUserLogin.equals("2")){
+            textDecimal.setChecked(true);
         }else{
-            textSwitch.setChecked(false);
+            textDecimal.setChecked(false);
         }
 
-        textSwitch.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Boolean isChecked = textSwitch.isChecked();
-
-                if(isChecked){
-                    //Creating a shared preference
-
-                    SharedPreferences sp = getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-                    //Creating editor to store values to shared preferences
-                    SharedPreferences.Editor editor = sp.edit();
-                    //Adding values to editor
-                    editor.putString(constant.HOME_PAGE, "1");
-
-                    //Saving values to editor
-                    editor.apply();
-                }else{
-                    //Creating a shared preference
-
-                    SharedPreferences sp = getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
-
-                    //Creating editor to store values to shared preferences
-                    SharedPreferences.Editor editor = sp.edit();
-                    //Adding values to editor
-                    editor.putString(constant.HOME_PAGE, "0");
-
-                    //Saving values to editor
-                    editor.apply();
-                }
-            }
-        });
-
-
-        getSupportActionBar().setTitle("Text to Binary");
-
-        etxtText.addTextChangedListener(new TextWatcher() {
+        etxtDecimal.addTextChangedListener(new TextWatcher() {
 
             @Override
             public void afterTextChanged(Editable s) {}
@@ -105,9 +69,14 @@ public class TextToBinaryActivity extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
                 if(s.length() != 0) {
-                    String text = etxtText.getText().toString();
-                    stringToBinary(text,true);
-                    btnCopy.setVisibility(View.VISIBLE);
+                    try {
+                        String text = etxtDecimal.getText().toString();
+                        txtBinary.setText(Integer.toBinaryString(Integer.parseInt(text)));
+                        binary = Integer.toBinaryString(Integer.parseInt(text));
+                        btnCopy.setVisibility(View.VISIBLE);
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
                 }else{
                     txtBinary.setText("");
                     btnCopy.setVisibility(View.INVISIBLE);
@@ -115,38 +84,54 @@ public class TextToBinaryActivity extends AppCompatActivity {
             }
         });
 
+
+
         btnCopy.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
                 ClipData clip = ClipData.newPlainText("text", binary);
                 clipboard.setPrimaryClip(clip);
-                Snackbar.make(bgl_main,"Copied to clipboard",Snackbar.LENGTH_SHORT).show();
+                Snackbar.make(bgl_decimal_to_binary,"Copied to clipboard",Snackbar.LENGTH_SHORT).show();
             }
         });
 
+        textDecimal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (textDecimal.isChecked()){
+                    //Creating a shared preference
+
+                    SharedPreferences sp = getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                    //Creating editor to store values to shared preferences
+                    SharedPreferences.Editor editor = sp.edit();
+                    //Adding values to editor
+                    editor.putString(constant.HOME_PAGE, "2");
+
+                    //Saving values to editor
+                    editor.apply();
+                }else{
+                    //Creating a shared preference
+
+                    SharedPreferences sp = getSharedPreferences(constant.SHARED_PREF_NAME, Context.MODE_PRIVATE);
+
+                    //Creating editor to store values to shared preferences
+                    SharedPreferences.Editor editor = sp.edit();
+                    //Adding values to editor
+                    editor.putString(constant.HOME_PAGE, "1");
+
+                    //Saving values to editor
+                    editor.apply();
+                }
+            }
+        });
     }
-
-    public String stringToBinary(String str, boolean pad) {
-        byte[] bytes = str.getBytes();
-        binary = new StringBuilder();
-        for (byte b : bytes)
-        {
-            binary.append(Integer.toBinaryString((int) b));
-            if(pad) { binary.append(' '); }
-        }
-        txtBinary.setText(binary);
-
-
-//        System.out.println("String to Binary : "+binary);
-        return binary.toString();
-    }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+        getMenuInflater().inflate(R.menu.main2, menu);
         return true;
     }
 
@@ -154,13 +139,13 @@ public class TextToBinaryActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         switch (id){
-            case R.id.binaryToText:
-                Intent intent = new Intent(getApplicationContext(),BinaryToTextActivity.class);
+            case R.id.textToBinary:
+                Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
-            case R.id.decimalToBinary:
-                Intent intent1 = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+            case R.id.binaryToText:
+                Intent intent1 = new Intent(getApplicationContext(),BinaryToTextActivity.class);
                 startActivity(intent1);
                 finish();
                 return true;

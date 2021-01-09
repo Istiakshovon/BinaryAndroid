@@ -28,7 +28,7 @@ public class BinaryToTextActivity extends AppCompatActivity {
     RelativeLayout bgl_binary;
     EditText etxtBinary;
     TextView txtText;
-    ImageButton btnCopy;
+    TextView btnCopy;
     String text;
     Switch binarySwitch;
 
@@ -44,7 +44,7 @@ public class BinaryToTextActivity extends AppCompatActivity {
         binarySwitch = findViewById(R.id.switch_binary_text);
 
         getSupportActionBar().setTitle("Binary to Text");
-        btnCopy.setVisibility(View.GONE);
+        btnCopy.setVisibility(View.INVISIBLE);
 
         //Fetching id from shared preferences
         SharedPreferences sharedPreferences;
@@ -109,7 +109,7 @@ public class BinaryToTextActivity extends AppCompatActivity {
                     btnCopy.setVisibility(View.VISIBLE);
                 }else{
                     txtText.setText("");
-                    btnCopy.setVisibility(View.GONE);
+                    btnCopy.setVisibility(View.INVISIBLE);
                 }
             }
         });
@@ -159,6 +159,16 @@ public class BinaryToTextActivity extends AppCompatActivity {
             case R.id.textToBinary:
                 Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
                 startActivity(intent);
+                finish();
+                return true;
+            case R.id.decimalToBinary:
+                Intent intent1 = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+                startActivity(intent1);
+                finish();
+                return true;
+            case R.id.binaryToDecimal:
+                Intent intent2 = new Intent(getApplicationContext(), BinaryToDecimalActivity.class);
+                startActivity(intent2);
                 finish();
                 return true;
             default:

@@ -9,6 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Binary">
+        <activity android:name=".BinaryToDecimalActivity"></activity>
+        <activity android:name=".DecimalToBinaryActivity" />
         <activity android:name=".TextToBinaryActivity" />
         <activity android:name=".BinaryToTextActivity" />
         <activity android:name=".SplashScreenActivity">

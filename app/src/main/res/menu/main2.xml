@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item  android:id="@+id/textToBinary"
+        android:title="Text to Binary"/>
+
     <item  android:id="@+id/binaryToText"
         android:title="Binary to Text"/>
-
-    <item  android:id="@+id/decimalToBinary"
-        android:title="Decimal to Binary"/>
     <item  android:id="@+id/binaryToDecimal"
         android:title="Binary to Decimal"/>
 </menu>
