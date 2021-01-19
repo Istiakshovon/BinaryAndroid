@@ -1,4 +1,4 @@
-package com.binary;
+package com.binary.converter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -14,12 +14,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.binary.R;
+import com.binary.constant;
+import com.binary.converter.BinaryToDecimalActivity;
+import com.binary.converter.BinaryToTextActivity;
+import com.binary.converter.DecimalToBinaryActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 public class TextToBinaryActivity extends AppCompatActivity {
@@ -155,18 +158,23 @@ public class TextToBinaryActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.binaryToText:
-                Intent intent = new Intent(getApplicationContext(),BinaryToTextActivity.class);
+                Intent intent = new Intent(getApplicationContext(), BinaryToTextActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
             case R.id.decimalToBinary:
-                Intent intent1 = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(), DecimalToBinaryActivity.class);
                 startActivity(intent1);
                 finish();
                 return true;
             case R.id.binaryToDecimal:
                 Intent intent2 = new Intent(getApplicationContext(), BinaryToDecimalActivity.class);
                 startActivity(intent2);
+                finish();
+                return true;
+            case R.id.textToHash:
+                Intent intent3 = new Intent(getApplicationContext(), StringToHashActivity.class);
+                startActivity(intent3);
                 finish();
                 return true;
             default:

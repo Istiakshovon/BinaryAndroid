@@ -2,10 +2,10 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/bgl_string_to_hash"
     android:layout_width="match_parent"
-    android:id="@+id/bgl_binary"
-    android:layout_height="match_parent"
-    tools:context=".converter.BinaryToTextActivity">
+    android:layout_height="match_parent">
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,7 +17,7 @@
             android:orientation="vertical" >
 
             <EditText
-                android:id="@+id/etxtBinary"
+                android:id="@+id/etxtText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
@@ -28,18 +28,18 @@
                 android:layout_marginBottom="5dp"
                 android:ems="10"
                 android:gravity="start|top"
-                android:hint="Enter binary text"
-                android:inputType="text" />
+                android:hint="Enter text"
+                android:inputType="textMultiLine" />
 
             <View
                 android:id="@+id/divider"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:layout_below="@id/etxtBinary"
+                android:layout_below="@id/etxtText"
                 android:background="?android:attr/listDivider" />
 
             <TextView
-                android:id="@+id/txtText"
+                android:id="@+id/txtHash"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/divider"
@@ -54,7 +54,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/txtText"
+                android:layout_below="@id/txtHash"
                 android:layout_margin="5dp"
                 android:orientation="horizontal">
 
@@ -69,13 +69,17 @@
                     android:text="Copy" />
 
                 <Switch
-                    android:id="@+id/switch_binary_text"
+                    android:id="@+id/switch_text_binary"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
                     android:paddingLeft="70dp"
                     android:text="home page" />
             </LinearLayout>
+
         </RelativeLayout>
     </androidx.core.widget.NestedScrollView>
+
+
+
 </RelativeLayout>

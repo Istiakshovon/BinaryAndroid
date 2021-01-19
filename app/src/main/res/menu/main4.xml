@@ -2,11 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item  android:id="@+id/textToBinary"
         android:title="Text to Binary"/>
-
     <item  android:id="@+id/binaryToText"
         android:title="Binary to Text"/>
+
     <item  android:id="@+id/decimalToBinary"
         android:title="Decimal to Binary"/>
-    <item android:id="@+id/textToHash"
-        android:title="Text to Hash"/>
+    <item  android:id="@+id/binaryToDecimal"
+        android:title="Binary to Decimal"/>
 </menu>

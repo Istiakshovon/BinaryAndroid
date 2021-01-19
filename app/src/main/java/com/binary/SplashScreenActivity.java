@@ -2,16 +2,20 @@ package com.binary;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.animation.ObjectAnimator;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
-import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.binary.converter.BinaryToDecimalActivity;
+import com.binary.converter.BinaryToTextActivity;
+import com.binary.converter.DecimalToBinaryActivity;
+import com.binary.converter.StringToHashActivity;
+import com.binary.converter.TextToBinaryActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -61,18 +65,23 @@ public class SplashScreenActivity extends AppCompatActivity {
                     startActivity(intent);
                     finish();
                 }else if(getUserLogin.equals("0")){
-                    Intent intent = new Intent(getApplicationContext(),BinaryToTextActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), BinaryToTextActivity.class);
                     startActivity(intent);
                     finish();
                 }else if(getUserLogin.equals("2")){
-                    Intent intent = new Intent(getApplicationContext(),DecimalToBinaryActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), DecimalToBinaryActivity.class);
                     startActivity(intent);
                     finish();
                 } else if (getUserLogin.equals("3")) {
-                    Intent intent = new Intent(getApplicationContext(),BinaryToDecimalActivity.class);
+                    Intent intent = new Intent(getApplicationContext(), BinaryToDecimalActivity.class);
                     startActivity(intent);
                     finish();
-                } else {
+                }else if(getUserLogin.equals("4")){
+                    Intent intent = new Intent(getApplicationContext(), StringToHashActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
                     if (getUserLogin.equals("")) {
                         //Creating a shared preference
 

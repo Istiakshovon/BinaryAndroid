@@ -7,4 +7,6 @@
         android:title="Decimal to Binary"/>
     <item  android:id="@+id/binaryToDecimal"
         android:title="Binary to Decimal"/>
+    <item android:id="@+id/textToHash"
+        android:title="Text to Hash"/>
 </menu>

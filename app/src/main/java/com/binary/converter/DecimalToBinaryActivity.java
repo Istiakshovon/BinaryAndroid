@@ -1,4 +1,4 @@
-package com.binary;
+package com.binary.converter;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -18,6 +18,8 @@ import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 
+import com.binary.R;
+import com.binary.constant;
 import com.google.android.material.snackbar.Snackbar;
 
 public class DecimalToBinaryActivity extends AppCompatActivity {
@@ -140,18 +142,23 @@ public class DecimalToBinaryActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.textToBinary:
-                Intent intent = new Intent(getApplicationContext(),TextToBinaryActivity.class);
+                Intent intent = new Intent(getApplicationContext(), TextToBinaryActivity.class);
                 startActivity(intent);
                 finish();
                 return true;
             case R.id.binaryToText:
-                Intent intent1 = new Intent(getApplicationContext(),BinaryToTextActivity.class);
+                Intent intent1 = new Intent(getApplicationContext(), BinaryToTextActivity.class);
                 startActivity(intent1);
                 finish();
                 return true;
             case R.id.binaryToDecimal:
                 Intent intent2 = new Intent(getApplicationContext(), BinaryToDecimalActivity.class);
                 startActivity(intent2);
+                finish();
+                return true;
+            case R.id.textToHash:
+                Intent intent3 = new Intent(getApplicationContext(), StringToHashActivity.class);
+                startActivity(intent3);
                 finish();
                 return true;
             default:

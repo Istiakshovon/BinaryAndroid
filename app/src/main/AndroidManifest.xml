@@ -9,10 +9,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Binary">
-        <activity android:name=".BinaryToDecimalActivity"></activity>
-        <activity android:name=".DecimalToBinaryActivity" />
-        <activity android:name=".TextToBinaryActivity" />
-        <activity android:name=".BinaryToTextActivity" />
+        <activity android:name=".converter.StringToHashActivity" />
+        <activity android:name=".converter.BinaryToDecimalActivity" />
+        <activity android:name=".converter.DecimalToBinaryActivity" />
+        <activity android:name=".converter.TextToBinaryActivity" />
+        <activity android:name=".converter.BinaryToTextActivity" />
         <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
